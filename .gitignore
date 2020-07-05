@@ -5,6 +5,7 @@ node_modules/
 build/
 temp/
 coverage/
+ormconfig.js
 
 tmp/*
 !tmp/.gitkeep
