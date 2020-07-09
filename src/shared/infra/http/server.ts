@@ -2,6 +2,7 @@ import 'dotenv/config';
 import 'reflect-metadata';
 
 import express, { Request, Response, NextFunction } from 'express';
+import path from 'path';
 import cors from 'cors';
 import 'express-async-errors';
 
@@ -17,6 +18,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use('/files', express.static(uploadConfig.uploadsFolder));
+app.use(
+  '/service-icons',
+  express.static(
+    path.resolve(__dirname, '..', '..', '..', '..', 'tmp', 'ServiceIcons'),
+  ),
+);
 app.use(routes);
 
 app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
@@ -38,6 +45,6 @@ app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
 
 app.listen(3333, () => {
   // eslint-disable-next-line no-console
-  console.log('🚀 Server started on http://localhost:3333');
+  console.log(`🚀 Server started on ${process.env.APP_API_URL}`);
   app.use(express.json());
 });
