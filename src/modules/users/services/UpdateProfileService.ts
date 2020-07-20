@@ -8,8 +8,8 @@ import IUsersRepository from '../repositories/IUsersRepository';
 
 interface IRequest {
   user_id: string;
+  phoneNumber: string;
   name: string;
-  cpf: string;
   email: string;
   old_password?: string;
   password?: string;
@@ -27,8 +27,8 @@ class UpdateProfileService {
 
   public async execute({
     user_id,
+    phoneNumber,
     name,
-    cpf,
     email,
     old_password,
     password,
@@ -45,14 +45,16 @@ class UpdateProfileService {
       throw new AppError('E-mail already in user.');
     }
 
-    const userWithUpdatedCPF = await this.usersRepository.findByCPF(cpf);
+    const userWithUpdatedCPF = await this.usersRepository.findByPhoneNumber(
+      phoneNumber,
+    );
 
     if (userWithUpdatedCPF && userWithUpdatedCPF.id !== user_id) {
       throw new AppError('CPF already in user.');
     }
 
+    user.phone_number = phoneNumber;
     user.name = name;
-    user.cpf = cpf;
     user.email = email;
 
     if (password && !old_password) {

@@ -16,8 +16,8 @@ describe('CreateUser', () => {
 
   it('should be able to create a new user', async () => {
     const user = await createUser.execute({
+      phoneNumber: '+5519974077193',
       name: 'Rick Sanchez',
-      cpf: '421.878.108-79',
       email: 'ricksanchez@gmail.com',
       password: '123456',
     });
@@ -27,34 +27,34 @@ describe('CreateUser', () => {
 
   it('should not be able to create a new user with same email from another', async () => {
     await createUser.execute({
+      phoneNumber: '+5519974077193',
       name: 'Rick Sanchez',
-      cpf: '421.878.108-79',
       email: 'ricksanchez@gmail.com',
       password: '123456',
     });
 
     await expect(
       createUser.execute({
+        phoneNumber: '+5519974077194',
         name: 'Rick Sanchez',
-        cpf: '421.878.108-80',
         email: 'ricksanchez@gmail.com',
         password: '123456',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
 
-  it('should not be able to create a new user with same cpf from another', async () => {
+  it('should not be able to create a new user with same phone number from another', async () => {
     await createUser.execute({
+      phoneNumber: '+5519974077193',
       name: 'Rick Sanchez',
-      cpf: '421.878.108-79',
       email: 'ricksanchez@gmail.com',
       password: '123456',
     });
 
     await expect(
       createUser.execute({
+        phoneNumber: '+5519974077193',
         name: 'Rick Sanchez',
-        cpf: '421.878.108-79',
         email: 'ricksanchez2@gmail.com',
         password: '123456',
       }),

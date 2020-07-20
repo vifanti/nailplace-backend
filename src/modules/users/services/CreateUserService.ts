@@ -6,8 +6,8 @@ import IUsersRepository from '../repositories/IUsersRepository';
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 
 interface IRequest {
+  phoneNumber: string;
   name: string;
-  cpf: string;
   email: string;
   password: string;
 }
@@ -23,28 +23,30 @@ class CreateUserService {
   ) {}
 
   public async execute({
+    phoneNumber,
     name,
-    cpf,
     email,
     password,
   }: IRequest): Promise<User> {
+    const checkPhoneNumberExists = await this.usersRepository.findByPhoneNumber(
+      phoneNumber,
+    );
+
+    if (checkPhoneNumberExists) {
+      throw new AppError('Phone number already used');
+    }
+
     const checkEmailExists = await this.usersRepository.findByEmail(email);
 
     if (checkEmailExists) {
       throw new AppError('Email address already used');
     }
 
-    const checkCpfExists = await this.usersRepository.findByCPF(cpf);
-
-    if (checkCpfExists) {
-      throw new AppError('CPF already used');
-    }
-
     const hashedPassword = await this.hashProvider.generateHash(password);
 
     const user = await this.usersRepository.create({
+      phoneNumber,
       name,
-      cpf,
       email,
       password: hashedPassword,
     });

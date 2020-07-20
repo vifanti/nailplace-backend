@@ -14,19 +14,19 @@ class User {
   id: string;
 
   @Column()
+  phone_number: string;
+
+  @Column()
   name: string;
 
   @Column()
   email: string;
 
   @Column()
-  cpf: string;
-
-  @Column()
   password: string;
 
-  @Column()
-  avatar: string;
+  // @Column()
+  // avatar: string;
 
   @CreateDateColumn()
   created_at: Date;

@@ -14,14 +14,19 @@ export default class CreateUsers1589589628823 implements MigrationInterface {
             default: 'uuid_generate_v4()',
           },
           {
-            name: 'name',
-            type: 'varchar',
-          },
-          {
-            name: 'cpf',
+            name: 'phone_number',
             type: 'varchar',
             isUnique: true,
           },
+          {
+            name: 'name',
+            type: 'varchar',
+          },
+          // {
+          //   name: 'cpf',
+          //   type: 'varchar',
+          //   isUnique: true,
+          // },
           {
             name: 'email',
             type: 'varchar',
@@ -31,11 +36,11 @@ export default class CreateUsers1589589628823 implements MigrationInterface {
             name: 'password',
             type: 'varchar',
           },
-          {
-            name: 'avatar',
-            type: 'varchar',
-            isNullable: true,
-          },
+          // {
+          //   name: 'avatar',
+          //   type: 'varchar',
+          //   isNullable: true,
+          // },
           {
             name: 'created_at',
             type: 'timestamp',

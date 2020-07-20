@@ -1,6 +1,6 @@
 export default interface ICreateUserDTO {
+  phoneNumber: string;
   name: string;
-  cpf: string;
   email: string;
   password: string;
 }

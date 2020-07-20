@@ -12,7 +12,7 @@ class ShowServiceService {
     private servicesRepository: IServicesRepository,
   ) {}
 
-  public async execute(): Promise<Service> {
+  public async execute(): Promise<Service[] | undefined> {
     const services = await this.servicesRepository.find();
 
     if (!services) {

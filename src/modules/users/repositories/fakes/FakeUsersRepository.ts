@@ -8,27 +8,35 @@ class FakeUsersRepository implements IUsersRepository {
   private users: User[] = [];
 
   public async findById(id: string): Promise<User | undefined> {
-    const fundUser = this.users.find(user => user.id === id);
+    const foundUser = this.users.find(user => user.id === id);
 
-    return fundUser;
+    return foundUser;
   }
 
   public async findByEmail(email: string): Promise<User | undefined> {
-    const fundUser = this.users.find(user => user.email === email);
+    const foundUser = this.users.find(user => user.email === email);
 
-    return fundUser;
+    return foundUser;
   }
 
-  public async findByCPF(cpf: string): Promise<User | undefined> {
-    const fundUser = this.users.find(user => user.cpf === cpf);
+  public async findByPhoneNumber(
+    phoneNumber: string,
+  ): Promise<User | undefined> {
+    const foundUser = this.users.find(
+      user => user.phone_number === phoneNumber,
+    );
 
-    return fundUser;
+    return foundUser;
   }
 
   public async create(userData: ICreateUserDTO): Promise<User> {
     const user = new User();
 
-    Object.assign(user, { id: uuid() }, userData);
+    Object.assign(
+      user,
+      { id: uuid(), phone_number: userData.phoneNumber },
+      userData,
+    );
 
     this.users.push(user);
 
