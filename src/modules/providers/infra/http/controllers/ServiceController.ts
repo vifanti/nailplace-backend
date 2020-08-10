@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
-import ShowServiceService from '@modules/users/services/ShowServiceService';
+import ShowServiceService from '@modules/providers/services/ShowServiceService';
 
 export default class Servicecontroller {
   public async show(request: Request, response: Response): Promise<Response> {

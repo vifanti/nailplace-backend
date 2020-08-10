@@ -1,45 +1,45 @@
-import { injectable, inject } from 'tsyringe';
+// import { injectable, inject } from 'tsyringe';
 
-import AppError from '@shared/errors/AppError';
+// import AppError from '@shared/errors/AppError';
 
-import User from '@modules/users/infra/typeorm/entities/User';
-import IStorageProvider from '@shared/container/providers/StorageProvider/models/IStorageProvider';
-import IUsersRepository from '../repositories/IUsersRepository';
+// import User from '@modules/users/infra/typeorm/entities/User';
+// import IStorageProvider from '@shared/container/providers/StorageProvider/models/IStorageProvider';
+// import IUsersRepository from '../repositories/IUsersRepository';
 
-interface IRequest {
-  user_id: string;
-  avatarFileName: string;
-}
+// interface IRequest {
+//   user_id: string;
+//   avatarFileName: string;
+// }
 
-@injectable()
-class UpdateUserAvatarService {
-  constructor(
-    @inject('UsersRepository')
-    private usersRepository: IUsersRepository,
+// @injectable()
+// class UpdateUserAvatarService {
+//   constructor(
+//     @inject('UsersRepository')
+//     private usersRepository: IUsersRepository,
 
-    @inject('StorageProvider')
-    private storageProvider: IStorageProvider,
-  ) {}
+//     @inject('StorageProvider')
+//     private storageProvider: IStorageProvider,
+//   ) {}
 
-  public async execute({ user_id, avatarFileName }: IRequest): Promise<User> {
-    const user = await this.usersRepository.findById(user_id);
+//   public async execute({ user_id, avatarFileName }: IRequest): Promise<User> {
+//     const user = await this.usersRepository.findById(user_id);
 
-    if (!user) {
-      throw new AppError('Only authenticated users con change avatar.', 401);
-    }
+//     if (!user) {
+//       throw new AppError('Only authenticated users con change avatar.', 401);
+//     }
 
-    if (user.avatar) {
-      await this.storageProvider.deleteFile(user.avatar);
-    }
+//     if (user.avatar) {
+//       await this.storageProvider.deleteFile(user.avatar);
+//     }
 
-    const fileName = await this.storageProvider.saveFile(avatarFileName);
+//     const fileName = await this.storageProvider.saveFile(avatarFileName);
 
-    user.avatar = fileName;
+//     user.avatar = fileName;
 
-    await this.usersRepository.save(user);
+//     await this.usersRepository.save(user);
 
-    return user;
-  }
-}
+//     return user;
+//   }
+// }
 
-export default UpdateUserAvatarService;
+// export default UpdateUserAvatarService;

@@ -5,6 +5,8 @@ import { injectable, inject } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 
 import User from '@modules/users/infra/typeorm/entities/User';
+import IProvidersRepository from '@modules/providers/repositories/IProvidersRepository';
+import Provider from '@modules/providers/infra/typeorm/entities/Provider';
 import IUsersRepository from '../repositories/IUsersRepository';
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 
@@ -16,6 +18,7 @@ interface IRequest {
 interface IResponse {
   user: User;
   token: string;
+  provider: Provider | undefined;
 }
 
 @injectable()
@@ -23,6 +26,9 @@ class AuthenticateUserService {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
+
+    @inject('ProvidersRepository')
+    private providersRepository: IProvidersRepository,
 
     @inject('HashProvider')
     private hashProvider: IHashProvider,
@@ -51,7 +57,9 @@ class AuthenticateUserService {
       expiresIn,
     });
 
-    return { user, token };
+    const provider = await this.providersRepository.findByUserId(user.id);
+
+    return { user, token, provider };
   }
 }
 

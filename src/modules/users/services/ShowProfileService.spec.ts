@@ -15,8 +15,8 @@ describe('ShowProfile', () => {
 
   it('should be able to show the profile', async () => {
     const user = await fakeUsersRepository.create({
+      phoneNumber: '+5519974077193',
       name: 'Rick Sanchez',
-      cpf: '421.878.108-79',
       email: 'ricksanchez@gmail.com',
       password: '123456',
     });
@@ -27,6 +27,7 @@ describe('ShowProfile', () => {
 
     expect(profile.name).toBe('Rick Sanchez');
     expect(profile.email).toBe('ricksanchez@gmail.com');
+    expect(profile.phone_number).toBe('+5519974077193');
   });
 
   it('should no be able to show the profile from non-existing user', async () => {

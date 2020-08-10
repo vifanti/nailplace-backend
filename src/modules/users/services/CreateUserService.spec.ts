@@ -43,6 +43,32 @@ describe('CreateUser', () => {
     ).rejects.toBeInstanceOf(AppError);
   });
 
+  // it('should not be able to create a new user if phone number and email is registered in different entries', async () => {
+  //   await createUser.execute({
+  //     phoneNumber: '+5519974077193',
+  //     name: 'Rick Sanchez',
+  //     email: 'ricksanchez@gmail.com',
+  //     password: '123456',
+  //   });
+
+  //   const error1 = await createUser.execute({
+  //     phoneNumber: '+5519974077193',
+  //     name: 'Morty Smith',
+  //     email: 'mortysmith@gmail.com',
+  //     password: '123456',
+  //   });
+
+  //   const error2 = await createUser.execute({
+  //     phoneNumber: '+5519974077194',
+  //     name: 'Rick Sanchez',
+  //     email: 'ricksanchez@gmail.com',
+  //     password: '123456',
+  //   });
+
+  //   await expect(error1).rejects.toBeInstanceOf(AppError);
+  //   await expect(error2).rejects.toBeInstanceOf(AppError);
+  // });
+
   it('should not be able to create a new user with same phone number from another', async () => {
     await createUser.execute({
       phoneNumber: '+5519974077193',

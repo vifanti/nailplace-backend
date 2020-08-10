@@ -1,7 +1,7 @@
 import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
-import Service from '@modules/users/infra/typeorm/entities/Service';
+import Service from '@modules/providers/infra/typeorm/entities/Service';
 
 import IServicesRepository from '../repositories/IServicesRepository';
 
