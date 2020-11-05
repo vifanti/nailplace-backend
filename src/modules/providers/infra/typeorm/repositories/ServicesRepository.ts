@@ -1,6 +1,6 @@
 import { getRepository, Repository } from 'typeorm';
 
-import IServicesRepository from '@modules/users/repositories/IServicesRepository';
+import IServicesRepository from '@modules/providers/repositories/IServicesRepository';
 
 import Service from '../entities/Service';
 
@@ -12,7 +12,7 @@ class ServicesRepository implements IServicesRepository {
   }
 
   public async find(): Promise<Service[] | undefined> {
-    const services = await this.ormRepository.find();
+    const services = await this.ormRepository.find({ order: { id: 'ASC' } });
 
     return services;
   }

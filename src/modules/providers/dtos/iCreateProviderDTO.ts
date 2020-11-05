@@ -6,5 +6,6 @@ interface IService {
 
 export default interface ICreateProviderDTO {
   user_id: string;
-  services_provided: IService[];
+  latitude: number;
+  longitude: number;
 }

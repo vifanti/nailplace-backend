@@ -19,9 +19,12 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint", "prettier"],
+  "plugins": [
+    "@typescript-eslint",
+    "prettier"
+  ],
   "rules": {
-    "prettier/prettier": "error",
+    "array-bracket-spacing": "error",
     "class-methods-use-this": "off",
     "@typescript-eslint/camelcase": "off",
     "no-useless-constructor": "off",
@@ -33,7 +36,9 @@
     ],
     "@typescript-eslint/interface-name-prefix": [
       "error",
-      { "prefixWithI": "always" }
+      {
+        "prefixWithI": "always"
+      }
     ],
     "import/extensions": [
       "error",

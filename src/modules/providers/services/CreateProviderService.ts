@@ -1,17 +1,15 @@
 import AppError from '@shared/errors/AppError';
 import { injectable, inject } from 'tsyringe';
 import Provider from '@modules/providers/infra/typeorm/entities/Provider';
+import ProvidesServices from '@modules/providers/infra/typeorm/entities/ProvidesServices';
 import IProvidersRepository from '../repositories/IProvidersRepository';
-
-interface IService {
-  id: number;
-  title: string;
-  image_url: string;
-}
+import IProvidesServicesRepository from '../repositories/IProvidesServicesRepository';
 
 interface IRequest {
   user_id: string;
-  services_provided: IService[];
+  latitude: number;
+  longitude: number;
+  services: string;
 }
 
 @injectable()
@@ -19,11 +17,16 @@ class CreateProviderService {
   constructor(
     @inject('ProvidersRepository')
     private providersRepository: IProvidersRepository,
+
+    @inject('ProvidesServicesRepository')
+    private providesServicesRepository: IProvidesServicesRepository,
   ) {}
 
   public async execute({
     user_id,
-    services_provided,
+    latitude,
+    longitude,
+    services,
   }: IRequest): Promise<Provider> {
     const checkUserIdExists = await this.providersRepository.findByUserId(
       user_id,
@@ -35,10 +38,31 @@ class CreateProviderService {
 
     const provider = await this.providersRepository.create({
       user_id,
-      services_provided,
+      latitude,
+      longitude,
     });
 
-    return provider;
+    let providesServices: ProvidesServices[] = [];
+
+    if (provider) {
+      const provider_id = provider.id;
+
+      const servicesProvided = services
+        .split(',')
+        .map((item: string) => Number(item.trim()))
+        .map((service_id: number) => {
+          return {
+            provider_id,
+            service_id,
+          };
+        });
+
+      providesServices = await this.providesServicesRepository.create(
+        servicesProvided,
+      );
+    }
+
+    return { ...provider, providesServices };
   }
 }
 

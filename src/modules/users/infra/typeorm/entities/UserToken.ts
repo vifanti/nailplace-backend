@@ -7,7 +7,7 @@ import {
   Generated,
 } from 'typeorm';
 
-// Quando coloca o decorator em cima da classe elee envia a classe como parâmetro para a entidade
+// Quando coloca o decorator em cima da classe ele envia a classe como parâmetro para a entidade
 
 @Entity('user_tokens')
 class UserToken {

@@ -4,11 +4,13 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  ManyToMany,
-  JoinTable,
+  OneToMany,
+  OneToOne,
+  JoinColumn,
 } from 'typeorm';
 
-import Service from '@modules/providers/infra/typeorm/entities/Service';
+import ProvidesServices from '@modules/providers/infra/typeorm/entities/ProvidesServices';
+import User from '@modules/users/infra/typeorm/entities/User';
 
 @Entity('providers')
 class Provider {
@@ -18,9 +20,24 @@ class Provider {
   @Column()
   user_id: string;
 
-  @ManyToMany(() => Service)
-  @JoinTable()
-  services_provided: Service[];
+  @Column()
+  latitude: number;
+
+  @Column()
+  longitude: number;
+
+  @OneToMany(
+    () => ProvidesServices,
+    providesServices => providesServices.providers,
+    {
+      cascade: true,
+    },
+  )
+  providesServices: ProvidesServices[];
+
+  @OneToOne(() => User, user => user.id, { cascade: true, eager: true })
+  @JoinColumn({ name: 'user_id' })
+  user: User;
 
   @CreateDateColumn()
   created_at: Date;

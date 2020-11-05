@@ -12,8 +12,11 @@ import ProvidersRepository from '@modules/providers/infra/typeorm/repositories/P
 import IUserTokensRepository from '@modules/users/repositories/IUserTokensRepository';
 import UserTokensRepository from '@modules/users/infra/typeorm/repositories/UserTokensRepository';
 
-import IServicesRepository from '@modules/users/repositories/IServicesRepository';
-import ServicesRepository from '@modules/users/infra/typeorm/repositories/ServicesRepository';
+import IServicesRepository from '@modules/providers/repositories/IServicesRepository';
+import ServicesRepository from '@modules/providers/infra/typeorm/repositories/ServicesRepository';
+
+import IProvidesServicesRepository from '@modules/providers/repositories/IProvidesServicesRepository';
+import ProvidesServicesRepository from '@modules/providers/infra/typeorm/repositories/ProvidesServicesRepository';
 
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
@@ -33,4 +36,9 @@ container.registerSingleton<IUserTokensRepository>(
 container.registerSingleton<IServicesRepository>(
   'ServicesRepository',
   ServicesRepository,
+);
+
+container.registerSingleton<IProvidesServicesRepository>(
+  'ProvidesServicesRepository',
+  ProvidesServicesRepository,
 );

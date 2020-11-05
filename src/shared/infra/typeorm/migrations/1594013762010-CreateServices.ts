@@ -1,5 +1,5 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
-import Service from '@modules/users/infra/typeorm/entities/Service';
+import Service from '@modules/providers/infra/typeorm/entities/Service';
 import ServicesSeed from '../seeds/services.seed';
 
 export default class CreateServices1594013762010 implements MigrationInterface {
