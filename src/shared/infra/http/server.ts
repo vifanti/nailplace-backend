@@ -1,5 +1,6 @@
-import 'dotenv/config';
+/* eslint-disable no-console */
 import 'reflect-metadata';
+import 'dotenv/config';
 
 import express, { Request, Response, NextFunction } from 'express';
 import path from 'path';
@@ -21,7 +22,7 @@ app.use('/files', express.static(uploadConfig.uploadsFolder));
 app.use(
   '/service-icons',
   express.static(
-    path.resolve(__dirname, '..', '..', '..', '..', 'tmp', 'ServiceIcons'),
+    path.resolve(__dirname, '..', '..', '..', '..', 'tmp', 'serviceicons'),
   ),
 );
 app.use(routes);
@@ -34,7 +35,6 @@ app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
     });
   }
 
-  // eslint-disable-next-line no-console
   console.error(err);
 
   return response.status(500).json({
@@ -44,7 +44,6 @@ app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
 });
 
 app.listen(3333, () => {
-  // eslint-disable-next-line no-console
   console.log(`🚀 Server started on ${process.env.APP_API_URL}`);
   app.use(express.json());
 });

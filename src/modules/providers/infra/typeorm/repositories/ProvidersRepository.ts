@@ -28,18 +28,14 @@ class ProvidersRepository implements IProvidersRepository {
   }
 
   public async findAllProviders(desiredServices: string): Promise<Provider[]> {
-    let providers: Provider[];
+    const providers = await this.ormRepository
+      .createQueryBuilder('providers')
+      .leftJoin('providers.providesServices', 'providesServices')
+      .leftJoinAndSelect('providers.user', 'user')
+      .select(['providers', 'user.name', 'user.avatar'])
+      .where(`providesServices.service_id IN (${desiredServices || 'null'})`)
+      .getMany();
 
-    if (desiredServices) {
-      providers = await this.ormRepository
-        .createQueryBuilder('providers')
-        .leftJoin('providers.providesServices', 'providesServices')
-        .leftJoinAndSelect('providers.user', 'user')
-        .where(`providesServices.service_id IN (${desiredServices})`)
-        .getMany();
-    } else {
-      providers = await this.ormRepository.find();
-    }
     return providers;
   }
 
