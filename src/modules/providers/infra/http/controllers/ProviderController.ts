@@ -6,11 +6,14 @@ import CreateProviderService from '@modules/providers/services/CreateProviderSer
 
 export default class ProvidersController {
   public async index(request: Request, response: Response): Promise<Response> {
-    const { selectedServices } = request.query;
+    const { selectedServices, userId } = request.query;
 
     const listProviders = container.resolve(ListProvidersService);
 
-    const providers = await listProviders.execute(selectedServices?.toString());
+    const providers = await listProviders.execute({
+      desiredServices: selectedServices?.toString(),
+      userId: userId?.toString(),
+    });
 
     return response.json(providers);
   }

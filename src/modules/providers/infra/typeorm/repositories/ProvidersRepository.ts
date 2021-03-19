@@ -2,7 +2,7 @@ import { getRepository, Repository } from 'typeorm';
 
 import IProvidersRepository from '@modules/providers/repositories/IProvidersRepository';
 import ICreateProviderDTO from '@modules/providers/dtos/iCreateProviderDTO';
-// import IFindAllProvidersDTO from '@modules/providers/dtos/IFindAllProvidersDTO';
+import IFilterProvidersDTO from '@modules/providers/dtos/iFilterProvidersDTO';
 
 import Provider from '../entities/Provider';
 
@@ -27,13 +27,17 @@ class ProvidersRepository implements IProvidersRepository {
     return provider;
   }
 
-  public async findAllProviders(desiredServices: string): Promise<Provider[]> {
+  public async findProviders({
+    desiredServices,
+    userId,
+  }: IFilterProvidersDTO): Promise<Provider[]> {
     const providers = await this.ormRepository
       .createQueryBuilder('providers')
       .leftJoin('providers.providesServices', 'providesServices')
       .leftJoinAndSelect('providers.user', 'user')
       .select(['providers', 'user.name', 'user.avatar'])
       .where(`providesServices.service_id IN (${desiredServices || 'null'})`)
+      .where(`providers.user_id IN ('${userId || 'null'}')`)
       .getMany();
 
     return providers;

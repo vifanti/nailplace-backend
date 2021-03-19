@@ -5,7 +5,8 @@ import IProvidersRepository from '@modules/providers/repositories/IProvidersRepo
 import Provider from '@modules/providers/infra/typeorm/entities/Provider';
 
 interface IRequest {
-  desiredServices: number[];
+  desiredServices?: string;
+  userId?: string;
 }
 
 @injectable()
@@ -15,12 +16,14 @@ class ListProvidersService {
     private providersRepository: IProvidersRepository,
   ) {}
 
-  public async execute(
-    desiredServices: string | undefined,
-  ): Promise<Provider[]> {
-    const providers = await this.providersRepository.findAllProviders(
+  public async execute({
+    desiredServices,
+    userId,
+  }: IRequest): Promise<Provider[]> {
+    const providers = await this.providersRepository.findProviders({
       desiredServices,
-    );
+      userId,
+    });
     return providers;
   }
 }

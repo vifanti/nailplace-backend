@@ -5,9 +5,9 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "stop-database": "docker stop $(docker ps -a -q)",
-    "start-database": "docker start nailplace-postgres && docker start nailplace-mongodb && docker start nailplace-redis",
-    "dev:server": "yarn start-database && ts-node-dev -r tsconfig-paths/register --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
+    "db:stop": "docker stop $(docker ps -a -q)",
+    "db:start": "docker start nailplace-postgres && docker start nailplace-mongodb && docker start nailplace-redis",
+    "dev:server": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
     "start": "ts-node src/shared/infra/http/server.ts",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "test": "jest"

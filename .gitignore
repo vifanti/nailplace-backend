@@ -8,4 +8,8 @@ coverage/
 ormconfig.js
 
 tmp/*
+tmp/uploads/*
 !tmp/.gitkeep
+!tmp/uploads
+!tmp/uploads/.gitkeep
+!tmp/serviceicons
