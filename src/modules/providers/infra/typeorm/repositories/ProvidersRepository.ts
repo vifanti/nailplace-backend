@@ -29,16 +29,26 @@ class ProvidersRepository implements IProvidersRepository {
 
   public async findProviders({
     desiredServices,
-    userId,
+    except_user_id,
+    user_id,
   }: IFilterProvidersDTO): Promise<Provider[]> {
-    const providers = await this.ormRepository
+    let query = this.ormRepository
       .createQueryBuilder('providers')
-      .leftJoin('providers.providesServices', 'providesServices')
+      .leftJoinAndSelect('providers.providesServices', 'providesServices')
       .leftJoinAndSelect('providers.user', 'user')
-      .select(['providers', 'user.name', 'user.avatar'])
-      .where(`providesServices.service_id IN (${desiredServices || 'null'})`)
-      .where(`providers.user_id IN ('${userId || 'null'}')`)
-      .getMany();
+      .select(['providers', 'user.name', 'user.avatar']);
+
+    if (desiredServices) {
+      query = query
+        .andWhere(`providesServices.service_id IN (${desiredServices})`)
+        .where(`providers.user_id <> '${except_user_id}'`);
+    }
+
+    if (user_id) {
+      query = query.where(`providers.user_id = '${user_id}'`);
+    }
+
+    const providers = await query.getMany();
 
     return providers;
   }

@@ -6,7 +6,8 @@ import Provider from '@modules/providers/infra/typeorm/entities/Provider';
 
 interface IRequest {
   desiredServices?: string;
-  userId?: string;
+  except_user_id?: string;
+  user_id?: string;
 }
 
 @injectable()
@@ -18,12 +19,15 @@ class ListProvidersService {
 
   public async execute({
     desiredServices,
-    userId,
+    except_user_id,
+    user_id,
   }: IRequest): Promise<Provider[]> {
     const providers = await this.providersRepository.findProviders({
       desiredServices,
-      userId,
+      except_user_id,
+      user_id,
     });
+
     return providers;
   }
 }

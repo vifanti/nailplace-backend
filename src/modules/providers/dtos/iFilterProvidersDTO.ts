@@ -1,4 +1,5 @@
 export default interface IFilterProvidersDTO {
   desiredServices?: string;
-  userId?: string;
+  except_user_id?: string;
+  user_id?: string;
 }
