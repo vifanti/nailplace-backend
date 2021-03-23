@@ -1,48 +1,48 @@
-import IProvidersRepository from '@modules/providers/repositories/IProvidersRepository';
-import ICreateProviderDTO from '@modules/providers/dtos/iCreateProviderDTO';
+// import IProvidersRepository from '@modules/providers/repositories/IProvidersRepository';
+// import ICreateProviderDTO from '@modules/providers/dtos/iCreateProviderDTO';
 
-import { uuid } from 'uuidv4';
-import Provider from '../../infra/typeorm/entities/Provider';
+// import { uuid } from 'uuidv4';
+// import Provider from '../../infra/typeorm/entities/Provider';
 
-class FakeProvidersRepository implements IProvidersRepository {
-  private providers: Provider[] = [];
+// class FakeProvidersRepository implements IProvidersRepository {
+//   private providers: Provider[] = [];
 
-  public async findById(id: string): Promise<Provider | undefined> {
-    const foundProvider = this.providers.find(provider => provider.id === id);
+//   public async findById(id: string): Promise<Provider | undefined> {
+//     const foundProvider = this.providers.find(provider => provider.id === id);
 
-    return foundProvider;
-  }
+//     return foundProvider;
+//   }
 
-  public async findByUserId(user_id: string): Promise<Provider | undefined> {
-    const foundProvider = this.providers.find(
-      provider => provider.user_id === user_id,
-    );
+//   public async findByUserId(user_id: string): Promise<Provider | undefined> {
+//     const foundProvider = this.providers.find(
+//       provider => provider.user_id === user_id,
+//     );
 
-    return foundProvider;
-  }
+//     return foundProvider;
+//   }
 
-  public async create(providerData: ICreateProviderDTO): Promise<Provider> {
-    const provider = new Provider();
+//   public async create(providerData: ICreateProviderDTO): Promise<Provider> {
+//     const provider = new Provider();
 
-    Object.assign(provider, {
-      id: uuid(),
-      ...providerData,
-    });
+//     Object.assign(provider, {
+//       id: uuid(),
+//       ...providerData,
+//     });
 
-    this.providers.push(provider);
+//     this.providers.push(provider);
 
-    return provider;
-  }
+//     return provider;
+//   }
 
-  public async save(provider: Provider): Promise<Provider> {
-    const findIndex = this.providers.findIndex(
-      findProvider => findProvider.id === provider.id,
-    );
+//   public async save(provider: Provider): Promise<Provider> {
+//     const findIndex = this.providers.findIndex(
+//       findProvider => findProvider.id === provider.id,
+//     );
 
-    this.providers[findIndex] = provider;
+//     this.providers[findIndex] = provider;
 
-    return provider;
-  }
-}
+//     return provider;
+//   }
+// }
 
-export default FakeProvidersRepository;
+// export default FakeProvidersRepository;

@@ -29,13 +29,14 @@ class Provider {
   @OneToMany(
     () => ProvidesServices,
     providesServices => providesServices.providers,
-    {
-      cascade: true,
-    },
+    // {
+    //   cascade: true,
+    //   eager: true,
+    // },
   )
   providesServices: ProvidesServices[];
 
-  @OneToOne(() => User, user => user.id, { cascade: true, eager: true })
+  @OneToOne(() => User, user => user.provider)
   @JoinColumn({ name: 'user_id' })
   user: User;
 

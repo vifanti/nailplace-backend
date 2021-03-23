@@ -4,11 +4,13 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToOne,
 } from 'typeorm';
 
 import uploadConfig from '@config/upload';
 
-import { Exclude, Expose } from 'class-transformer/decorators';
+import { Exclude, Expose } from 'class-transformer';
+import Provider from '@modules/providers/infra/typeorm/entities/Provider';
 
 // Quando coloca o decorator em cima da classe elee envia a classe como parâmetro para a entidade
 
@@ -38,6 +40,9 @@ class User {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @OneToOne(() => Provider, provider => provider.user)
+  provider: Provider;
 
   @Expose({ name: 'avatar_url' })
   getAvatarUrl(): string | null {

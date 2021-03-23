@@ -36,16 +36,17 @@ class ProvidersRepository implements IProvidersRepository {
       .createQueryBuilder('providers')
       .leftJoinAndSelect('providers.providesServices', 'providesServices')
       .leftJoinAndSelect('providers.user', 'user')
-      .select(['providers', 'user.name', 'user.avatar']);
+      .select(['providers', 'user.name', 'user.avatar'])
+      .where(`providers.user_id <> '${except_user_id}'`);
 
     if (desiredServices) {
-      query = query
-        .andWhere(`providesServices.service_id IN (${desiredServices})`)
-        .where(`providers.user_id <> '${except_user_id}'`);
+      query = query.andWhere(
+        `providesServices.service_id IN (${desiredServices})`,
+      );
     }
 
     if (user_id) {
-      query = query.where(`providers.user_id = '${user_id}'`);
+      query = query.andWhere(`providers.user_id = '${user_id}'`);
     }
 
     const providers = await query.getMany();

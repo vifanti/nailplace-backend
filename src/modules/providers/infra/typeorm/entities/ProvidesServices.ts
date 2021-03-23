@@ -6,12 +6,14 @@ import {
   UpdateDateColumn,
   ManyToOne,
   JoinColumn,
+  OneToOne,
 } from 'typeorm';
 
-import Provider from '@modules/providers/infra/typeorm/entities/Provider';
+import Provider from './Provider';
+import Service from './Service';
 
 @Entity('provides_services')
-class ProvidersServices {
+class ProvidesServices {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -25,6 +27,10 @@ class ProvidersServices {
   @Column()
   service_id: number;
 
+  @OneToOne(() => Service)
+  @JoinColumn({ name: 'service_id' })
+  service: Service;
+
   @CreateDateColumn()
   created_at: Date;
 
@@ -32,4 +38,4 @@ class ProvidersServices {
   updated_at: Date;
 }
 
-export default ProvidersServices;
+export default ProvidesServices;

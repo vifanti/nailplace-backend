@@ -4,7 +4,9 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToOne,
 } from 'typeorm';
+import ProvidesServices from './ProvidesServices';
 
 // Quando coloca o decorator em cima da classe elee envia a classe como parâmetro para a entidade
 
@@ -18,6 +20,12 @@ class Services {
 
   @Column()
   image_url: string;
+
+  @OneToOne(
+    () => ProvidesServices,
+    providesServices => providesServices.service,
+  ) // specify inverse side as a second parameter
+  providesService: ProvidesServices;
 
   @CreateDateColumn()
   created_at: Date;

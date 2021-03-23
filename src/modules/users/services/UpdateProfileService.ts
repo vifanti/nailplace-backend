@@ -9,6 +9,7 @@ import IUsersRepository from '../repositories/IUsersRepository';
 interface IRequest {
   user_id: string;
   phoneNumber: string;
+  cpf: number;
   name: string;
   email: string;
   old_password?: string;
@@ -28,6 +29,7 @@ class UpdateProfileService {
   public async execute({
     user_id,
     phoneNumber,
+    cpf,
     name,
     email,
     old_password,
@@ -53,6 +55,7 @@ class UpdateProfileService {
       throw new AppError('CPF already in user.');
     }
 
+    console.log(cpf);
     user.phone_number = phoneNumber;
     user.name = name;
     user.email = email;

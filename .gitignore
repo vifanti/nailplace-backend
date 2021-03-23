@@ -5,7 +5,7 @@ node_modules/
 build/
 temp/
 coverage/
-ormconfig.js
+dist
 
 tmp/*
 tmp/uploads/*

@@ -43,7 +43,7 @@ export default {
   config: {
     disk: {},
     aws: {
-      bucket: 'nailplace',
+      bucket: 'app-nailplace',
     },
   },
 } as IUploadConfig;
