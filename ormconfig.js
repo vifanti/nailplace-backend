@@ -4,9 +4,9 @@ module.exports = {
   url: process.env.DATABASE_URL,
   type: 'postgres',
   logging: process.env.NODE_ENV === 'development',
-  entities: ['./src/modules/**/infra/typeorm/entities/*.ts'],
-  migrations: ['./src/shared/infra/typeorm/migrations/*.ts'],
+  entities: [`./${process.env.ROOT_DIR}/modules/**/infra/typeorm/entities/*`],
+  migrations: [`./${process.env.ROOT_DIR}/shared/infra/typeorm/migrations/*`],
   cli: {
-    migrationsDir: './src/shared/infra/typeorm/migrations',
+    migrationsDir: `./${process.env.ROOT_DIR}/shared/infra/typeorm/migrations`,
   },
 };
