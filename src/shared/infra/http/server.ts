@@ -47,5 +47,6 @@ app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
 
 app.listen(process.env.PORT, () => {
   console.log(`🚀 Server started on ${process.env.APP_API_URL}`);
+  console.log(`⚙ Environment: ${process.env.NODE_ENV}`);
   app.use(express.json());
 });

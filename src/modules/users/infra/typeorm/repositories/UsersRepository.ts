@@ -19,13 +19,9 @@ class UsersRepository implements IUsersRepository {
   }
 
   public async findByEmail(email: string): Promise<User | undefined> {
-    const user = await this.ormRepository
-      .createQueryBuilder('user')
-      .leftJoinAndSelect('user.provider', 'provider')
-      .leftJoinAndSelect('provider.providesServices', 'providesServices')
-      .leftJoinAndSelect('providesServices.service', 'services')
-      .where(`user.email = '${email}'`)
-      .getOne();
+    const user = await this.ormRepository.findOne({
+      where: { email },
+    });
 
     return user;
   }

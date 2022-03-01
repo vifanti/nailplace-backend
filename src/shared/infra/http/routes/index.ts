@@ -9,6 +9,9 @@ import providersRouter from '@modules/providers/infra/http/routes/providers.rout
 
 const routes = Router();
 
+routes.get('/', (request, response) => {
+  response.json({ status: 'ok', name: 'nailplace-backend', version: '1.0.0' });
+});
 routes.use('/users', usersRouter);
 routes.use('/sessions', sessionsRouter);
 routes.use('/password', passwordRouter);
