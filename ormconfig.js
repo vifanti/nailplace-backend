@@ -9,7 +9,9 @@ module.exports = {
   cli: {
     migrationsDir: `./${process.env.ROOT_DIR}/shared/infra/typeorm/migrations`,
   },
-  ...(process.env.NODE_ENV === 'development' ? {} : {ssl: {
-    rejectUnauthorized: false,
-  }})
+  ...(process.env.NODE_ENV === 'development' ? {} : {
+    ssl: {
+      rejectUnauthorized: false,
+    }
+  })
 };
